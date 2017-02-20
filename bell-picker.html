@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>random bell picker</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato:200" rel="stylesheet">
+
+<style>
+
+@font-face {
+    font-family: betty;
+    src: url(betty.otf);
+}
+
+* {
+  box-sizing: border-box;
+} 
+
+body {
+	background-color: #ffe4c7;
+    margin: 0;
+    padding: 0;
+}
+
+a:focus, button:focus {
+    outline: none ;
+  }
+  
+
+.header-box {
+	display: -webkit-flex;
+  	display: flex;
+  	justify-content: center;
+}
+
+.decor {
+	background-image: url(decor.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	height: 57px;
+	width: 37px;
+	padding: 60px 0px;
+}
+
+.decor img {
+	height: 57px;
+	width: 37px;
+}
+
+.right {
+	-ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+h1 {
+    color: #000000;
+    text-align: center;
+    font-family: betty;
+    font-weight: normal;
+    font-size: 60px;
+    padding: 0px 20px;
+}
+
+.illustration {
+	margin: auto;
+	width: 400px;
+	height: 300px;
+	background-repeat: no-repeat;
+	background-image: url(hand-triangle.png);
+	background-position: center center;
+}
+
+.illustration img {
+	width: 200px;
+}
+
+.question {
+ 	color: #000000;
+    text-align: center;
+    font-family: georgia;
+    font-family: betty;
+
+    font-weight: normal;
+    font-size: 40px;
+    padding: 0px 10px;
+}
+
+.winner-box {
+	display: -webkit-flex;
+  	display: flex;
+  	justify-content: center;
+  	margin: auto;
+	background-color: #000000;
+	height: 54px;
+	width: 400px;
+}
+
+.winner-box p {
+	font-size: 20px;
+	color: #ffe4c7;
+	letter-spacing: 0.05em;
+	font-family: 'Lato', sans-serif;
+	font-weight: normal;
+	margin: 14px;
+	text-align: center;
+
+}
+.spin-box {
+	display: -webkit-flex;
+  	display: flex;
+	display: inline-flex;
+	justify-content: center;
+	width: 100%;
+	height: 250px;
+	padding: 40px;
+}
+
+.hand-pointing {
+	display: -webkit-flex;
+  	display: flex;
+	width: 40%;
+	height: 100%;
+	padding: 20px;
+}
+
+.pointing-animation {
+	position: relative;
+	background-image: url(hand-pointing.png);
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	-webkit-animation-name: pointing; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+    -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+    animation-name: pointing;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes pointing {
+    0%   { left:0px; top:0px;}
+    35%  { left:20px; top:0px;}
+	100% { left:0px; top:0px;}
+}
+
+/* Standard syntax */
+@keyframes pointing {
+    0%   { left:0px; top:0px;}
+   	35%  { left:20px; top:0px;}
+    100% { left:0px; top:0px;}
+}
+
+.button-box {
+	display: -webkit-flex;
+  	display: flex;
+  	justify-content: center;
+  	padding: 40px;
+  	width: 20%;
+}
+
+.empty {
+	width: 40%;
+}
+
+button {
+	width: 200px;
+	height: 60px;
+	text-align: center;
+	border-color: black;
+	border-width: 4px;
+	background-color: #ffe4c7;
+	font-size: 20px;
+	letter-spacing: 0.2em;
+	font-family: betty;
+    font-weight: normal;
+    font-size: 40px;	
+    padding: 10px;
+    box-shadow: 4px 4px;
+    -webkit-transition-duration: 0.2s; /* Safari */
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+button:hover {
+ 	background-color: rgba(0, 0, 0, 1);
+ 	color: #ffe4c7;
+ 	box-shadow: 0px 0px;
+ 	-ms-transform: translate(4px,4px); /* IE 9 */
+    -webkit-transform: translate(4px,4px); /* Safari */
+    transform: translate(4px,4px); /* Standard syntax */
+}
+
+button:actve {
+	background-color: rgba(0, 0, 0, 1);
+ 	color: #ffe4c7;
+ 	-ms-transform: translate(4px,4px); /* IE 9 */
+    -webkit-transform: translate(4px,4px); /* Safari */
+    transform: translate(4px,4px); /* Standard syntax */
+}
+
+button:visited {
+	background-color: #ffe4c7;
+ 	color: #000000;
+ 	 -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+</style>
+
+</head>
+
+<body>
+
+	<div class="header-box"> 
+		<div class="decor"></div>
+		<h1 id="header" >Bell picker</h1>
+		<div class="decor right"></div>
+	</div>
+
+	<div class="illustration"></div>
+
+	<div class="question"><p>Who is next?</p></div>
+
+	<div class="winner-box"><p id="text"></p></div>
+
+	<div class="spin-box">
+		<div class="hand-pointing"><div class="pointing-animation"></div></div>
+		<div class="button-box"><button id="button">SPIN</button></div>
+		<div class="empty"></div>
+	</div>
+	
+
+<script >
+
+	var button = document.getElementById('button');
+	var name = ""
+	var text = document.getElementById("text");
+	
+	button.addEventListener('click', function(){
+		var winner = Math.floor(Math.random() * 20) + 1;
+		console.log('The winner is: ' + winner);
+
+		switch (winner) {
+		case 1:
+			name = 'David';
+			break;
+		case 2:
+			name = 'Sascha';
+			break;
+		case 3:
+			name = 'Jiri';
+			break;
+		case 4:
+			name = 'Renan';
+			break;
+		case 5:
+			name = 'Annelie';
+			break;
+		case 6:
+			name = 'Daniel';
+			break;
+		case 7:
+			name = 'Tim';
+			break;
+		case 8:
+			name = 'Eloïse';
+			break;
+		case 9:
+			name = 'Rafael';
+			break;
+		case 10:
+			name = 'Eva';
+			break;
+		case 11:
+			name = 'Giuseppe';
+			break;
+		case 12:
+			name = 'Philip';
+			break;
+		case 13:
+			name = 'Sita';
+			break;
+		case 14:
+			name = 'Andrew';
+			break;
+		case 15:
+			name = 'Ludwig';
+			break;
+		case 16:
+			name = 'Volha';
+			break;
+		case 17:
+			name = 'Emma';
+			break;
+		case 18:
+			name = 'Cian';
+			break;
+		case 19:
+			name = 'Peter Hermijanz';
+			break;
+		case 20:
+			name = 'Peter Höche';
+			break;
+		default:
+			name = 'Something went wrong :( Try once again. ';
+			break;
+		};
+		
+		console.log(name);
+		text.innerText = name;
+	}); 
+
+</script>
+  
+</body>
+</html>

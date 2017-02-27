@@ -331,7 +331,7 @@ button:visited {
 	var hand = document.getElementById("hand")
 	
 	button.addEventListener('click', function(){
-		var winner = Math.floor(Math.random() * 20) + 1;
+		var winner = Math.floor(Math.random() * 23) + 1;
 		console.log('The winner is: ' + winner);
 
 		switch (winner) {
@@ -396,7 +396,14 @@ button:visited {
 			name = 'Peter';
 			break;
 		case 21:
+			name = 'Bojan';
+			break;
+		case 22:
+			name = 'Toby';
+			break;
+		case 23:
 			name = 'Aga';
+			break;
 		default:
 			name = 'Something went wrong :( Try once again. ';
 			break;
